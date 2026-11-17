@@ -1,0 +1,1 @@
+// export { default } from "../../components/ui/sidebar-portfolio-template.tsx"
