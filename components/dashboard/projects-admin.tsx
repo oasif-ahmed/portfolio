@@ -24,6 +24,7 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
     order: 0,
   });
   const [tagsInput, setTagsInput] = useState("");
+  const [highlightsInput, setHighlightsInput] = useState("");
   const [imagesInput, setImagesInput] = useState("");
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
@@ -39,6 +40,7 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
       order: projects.length,
     });
     setTagsInput("");
+    setHighlightsInput("");
     setImagesInput("");
     setUploadedImages([]);
     setEditingId(null);
@@ -59,6 +61,7 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
       order: p.order ?? 0,
     });
     setTagsInput((p.tags || []).join(", "));
+    setHighlightsInput((p.highlights || []).join("\n"));
     setImagesInput((p.images || []).filter((img) => !img.startsWith("data:")).join("\n"));
     setUploadedImages((p.images || []).filter((img) => img.startsWith("data:")));
   };
@@ -85,6 +88,11 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
       .map((t) => t.trim())
       .filter(Boolean);
 
+    const parsedHighlights = highlightsInput
+      .split("\n")
+      .map((h) => h.trim())
+      .filter(Boolean);
+
     const parsedImages = imagesInput
       .split("\n")
       .map((img) => img.trim())
@@ -93,6 +101,7 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
     const payload = {
       ...form,
       tags: parsedTags,
+      highlights: parsedHighlights,
       images: [...parsedImages, ...uploadedImages],
     };
 
@@ -244,6 +253,19 @@ export function ProjectsAdmin({ initialProjects }: { initialProjects: CustomProj
               value={tagsInput}
               onChange={(e) => setTagsInput(e.target.value)}
               placeholder="TypeScript, Next.js, Redis, PostgreSQL"
+              className="w-full px-3 py-2 rounded-md bg-[var(--spt-paper)] border border-[var(--spt-line)] text-xs text-[var(--spt-ink)] outline-none focus:border-[var(--spt-accent)]"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-medium text-[var(--spt-muted)] mb-1">
+              Impact Bullets (one per line, shown on project cards)
+            </label>
+            <textarea
+              rows={3}
+              value={highlightsInput}
+              onChange={(e) => setHighlightsInput(e.target.value)}
+              placeholder="3 role-based dashboards&#10;2 payment gateways&#10;10-test Vitest suite"
               className="w-full px-3 py-2 rounded-md bg-[var(--spt-paper)] border border-[var(--spt-line)] text-xs text-[var(--spt-ink)] outline-none focus:border-[var(--spt-accent)]"
             />
           </div>
