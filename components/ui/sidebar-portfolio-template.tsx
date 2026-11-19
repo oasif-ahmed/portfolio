@@ -14,28 +14,38 @@
 // flips the page dark. Everything is drawn here: no fonts, images or packages.
 import * as React from "react"
 import {
+  siC,
   siCplusplus,
   siCss,
   siDocker,
   siExpress,
+  siFirebase,
   siGit,
+  siGithub,
   siGnubash,
   siGraphql,
   siHtml5,
   siJavascript,
+  siJsonwebtokens,
   siLinux,
   siMongodb,
   siMongoose,
   siNextdotjs,
   siNodedotjs,
+  siNetlify,
   siOpenjdk,
   siPostgresql,
+  siPostman,
   siPrisma,
   siPython,
   siReact,
   siRedis,
+  siRender,
+  siStripe,
   siTailwindcss,
+  siTanstack,
   siTypescript,
+  siVercel,
   type SimpleIcon,
 } from "simple-icons"
 import type { GithubActivity } from "@/lib/github"
@@ -982,25 +992,50 @@ function BrandSocialIcon({ icon }: { icon: SptSocialIcon }) {
   )
 }
 
-const SKILL_ICONS: { match: RegExp; icon: SimpleIcon }[] = [
+type SkillBrandIcon = Pick<SimpleIcon, "path" | "hex">
+
+const SQL_ICON: SkillBrandIcon = {
+  hex: "4479A1",
+  path:
+    "M12 2C7.6 2 4 3.1 4 4.5S7.6 7 12 7s8-1.1 8-2.5S16.4 2 12 2ZM4 8.2c0 1.4 3.6 2.6 8 2.6s8-1.2 8-2.6v2.3c0 1.4-3.6 2.6-8 2.6s-8-1.2-8-2.6V8.2Zm0 5.2c0 1.4 3.6 2.6 8 2.6s8-1.2 8-2.6V16c0 1.4-3.6 2.5-8 2.5S4 17.4 4 16v-2.6Zm0 5.2c0 1.4 3.6 2.6 8 2.6s8-1.2 8-2.6V21c0 1.4-3.6 2.5-8 2.5S4 22.4 4 21v-2.4Z",
+}
+
+const AUTH_ICON: SkillBrandIcon = {
+  hex: "000000",
+  path: "M14.5 2a6 6 0 0 0-5.7 8L2 16.8V22h5.2l6.8-6.8a6 6 0 1 0 .5-13.2Zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z",
+}
+
+const SKILL_ICONS: { match: RegExp; icon: SkillBrandIcon }[] = [
+  { match: /\bnextauth\b/i, icon: AUTH_ICON },
   { match: /\bnext(?:\.js|js)?\b/i, icon: siNextdotjs },
   { match: /\breact(?:\.js|js)?\b/i, icon: siReact },
+  { match: /\btanstack(?:\s+query)?\b|\breact query\b/i, icon: siTanstack },
   { match: /\btypescript\b|\bts\b/i, icon: siTypescript },
   { match: /\bjavascript\b|\bjs\b/i, icon: siJavascript },
   { match: /\bnode(?:\.js|js)?\b/i, icon: siNodedotjs },
   { match: /\bpostgre(?:sql)?\b|\bpostgres\b/i, icon: siPostgresql },
+  { match: /\bsql\b/i, icon: SQL_ICON },
   { match: /\bprisma\b/i, icon: siPrisma },
   { match: /\bmongodb?\b|\bmongo\b/i, icon: siMongodb },
   { match: /\bmongoose\b/i, icon: siMongoose },
   { match: /\bredis\b/i, icon: siRedis },
   { match: /\bexpress(?:\.js|js)?\b/i, icon: siExpress },
   { match: /\btailwind(?:\s*css)?\b/i, icon: siTailwindcss },
+  { match: /\bgithub\b/i, icon: siGithub },
   { match: /\bgit\b/i, icon: siGit },
+  { match: /\bjson\s*web\s*tokens?\b|\bjwt\b/i, icon: siJsonwebtokens },
+  { match: /\bstripe\b/i, icon: siStripe },
+  { match: /\bpostman\b/i, icon: siPostman },
+  { match: /\bfirebase\b/i, icon: siFirebase },
+  { match: /\bvercel\b/i, icon: siVercel },
+  { match: /\bnetlify\b/i, icon: siNetlify },
+  { match: /\brender\b/i, icon: siRender },
   { match: /\bdocker\b/i, icon: siDocker },
   { match: /\bhtml5?\b/i, icon: siHtml5 },
   { match: /\bcss3?\b/i, icon: siCss },
   { match: /\bpython\b/i, icon: siPython },
   { match: /\bc\+\+\b/i, icon: siCplusplus },
+  { match: /\bc\b/i, icon: siC },
   { match: /\bjava\b|\bopenjdk\b/i, icon: siOpenjdk },
   { match: /\bgraphql\b/i, icon: siGraphql },
   { match: /\blinux\b/i, icon: siLinux },
@@ -1482,8 +1517,11 @@ const SPT_CSS = `
 .spt-tab-pill{position:absolute;top:3px;left:0;height:28px;border-radius:4px;background:var(--spt-paper);box-shadow:0 1px 3px rgba(0,0,0,.1),0 0 0 1px var(--spt-line);transition:transform .35s cubic-bezier(.25,1,.5,1),width .35s cubic-bezier(.25,1,.5,1);will-change:transform,width}
 .spt-skills{list-style:none;margin:0;padding:0;display:grid;gap:4px}
 .spt-skill{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:9px 0;border-bottom:1px dashed var(--spt-line)}
-.spt-skill-name{font-size:13px}
+.spt-skill-name{display:flex;align-items:center;gap:7px;min-width:0;font-size:13px}
 .spt-skill-name small{margin-left:8px;font-size:11px;color:var(--spt-faint)}
+.spt-skill-name .spt-skill-icon{width:14px;height:14px;flex:none;color:var(--skill-color,var(--spt-accent))}
+.spt-skill-name .spt-skill-dot{width:5px;height:5px;border-radius:50%;background:var(--spt-accent);color:transparent}
+.spt-root[data-theme="dark"] .spt-skill-name .spt-skill-icon[data-dark]{color:var(--spt-ink)}
 .spt-skill-lvl{font-size:11px;color:var(--spt-muted);text-align:right}
 .spt-meter{grid-column:1/-1;display:grid;grid-template-columns:repeat(20,1fr);gap:2px;height:6px}
 .spt-meter i{border-radius:1px;background:var(--spt-soft2);transition:background .3s;transition-delay:calc(var(--i) * 22ms)}
@@ -2356,7 +2394,8 @@ export default function SidebarPortfolioTemplate({
                         return (
                           <li key={tab + "-" + s.name + i} className="spt-skill">
                             <span className="spt-skill-name">
-                              {s.name}
+                              <SkillIcon name={s.name} />
+                              <span>{s.name}</span>
                               {s.years ? <small>{s.years + (s.years === 1 ? " yr" : " yrs")}</small> : null}
                             </span>
                             <span className="spt-skill-lvl">{levelName(s.level)}</span>

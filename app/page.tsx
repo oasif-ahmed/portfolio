@@ -8,6 +8,8 @@ import SidebarPortfolioTemplate, { SptSkillGroup } from "@/components/ui/sidebar
 
 export const instant = false;
 
+const SKILL_CATEGORY_ORDER = ["Languages", "Frontend", "Backend", "Tools & DevOps"];
+
 const DEFAULT_PROJECTS = [
   {
     title: "Rate Limiter",
@@ -86,7 +88,15 @@ export default async function Home() {
   );
 
   // Group skills into category tabs for SidebarPortfolioTemplate
-  const skillCategories = Array.from(new Set(dbSkills.map((s) => s.category || "General")));
+  const skillCategories = Array.from(new Set(dbSkills.map((s) => s.category || "General"))).sort((a, b) => {
+    const aIndex = SKILL_CATEGORY_ORDER.indexOf(a);
+    const bIndex = SKILL_CATEGORY_ORDER.indexOf(b);
+
+    if (aIndex === -1 && bIndex === -1) return 0;
+    if (aIndex === -1) return 1;
+    if (bIndex === -1) return -1;
+    return aIndex - bIndex;
+  });
   const groupedSkills: SptSkillGroup[] = skillCategories.map((cat) => ({
     name: cat,
     items: dbSkills

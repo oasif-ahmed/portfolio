@@ -116,7 +116,7 @@ export function SkillsAdmin({ initialSkills }: { initialSkills: SkillItem[] }) {
 
       {/* Category selector */}
       <div className="flex gap-2 p-1 rounded-xl bg-[var(--spt-soft)] border border-[var(--spt-line)] w-fit">
-        {["All", ...categories].map((cat) => (
+        {[...categories, "All"].map((cat) => (
           <button
             key={cat}
             onClick={() => setFilterCategory(cat)}
