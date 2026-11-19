@@ -112,7 +112,6 @@ export type SptSkill = { name: string; level: number; years?: number }
 export type SptSkillGroup = { name: string; items: SptSkill[] }
 export type SptLabels = {
   about: string
-  featuredWork: string
   experience: string
   projects: string
   education: string
@@ -163,10 +162,8 @@ export interface SidebarPortfolioTemplateProps {
   skills?: SptSkillGroup[]
   contactTitle?: string
   contactText?: string
-  /** Shows the green "available" pulse in the hero and Contact. */
+  /** Shows the green "available" pulse in Contact. */
   available?: boolean
-  /** Text for the availability pulse, e.g. "Available for impact roles". */
-  availabilityLabel?: string
   /** IANA zone for the local-time line in Contact, e.g. "Europe/Berlin". */
   timeZone?: string
   city?: string
@@ -189,7 +186,6 @@ export interface SidebarPortfolioTemplateProps {
 
 const DEFAULT_LABELS: SptLabels = {
   about: "About",
-  featuredWork: "Selected Work",
   experience: "Experience",
   projects: "Projects",
   education: "Education",
@@ -1396,7 +1392,6 @@ const SPT_CSS = `
 
 /* hero */
 .spt-hero{padding:34px 0 52px;text-align:center;display:grid;justify-items:center}
-.spt-hero-status{margin:0 0 14px}
 .spt-art-wrap{position:relative;width:276px;height:184px;color:var(--spt-accent);cursor:pointer;border-radius:12px;--spt-px:0;--spt-py:0}
 .spt-art{width:276px;height:184px}
 .spt-art g{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
@@ -1447,31 +1442,6 @@ const SPT_CSS = `
 .spt-root[data-theme="dark"] .spt-chip .spt-skill-icon[data-dark]{color:var(--spt-ink)}
 .spt-chip[aria-pressed="true"] .spt-skill-icon{color:#fff}
 .spt-label{margin:20px 0 9px;font-size:12.5px;font-weight:500}
-
-/* selected work */
-.spt-featured{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-@media (max-width:980px){.spt-featured{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:720px){.spt-featured{grid-template-columns:1fr}}
-.spt-featured-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--spt-line);border-radius:8px;background:var(--spt-paper);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
-.spt-featured-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.09);border-color:color-mix(in oklab,var(--spt-accent) 45%,var(--spt-line))}
-.spt-featured-media{aspect-ratio:16/10;overflow:hidden;background:var(--spt-soft2)}
-.spt-featured-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
-.spt-featured-card:hover .spt-featured-media img{transform:scale(1.04)}
-.spt-featured-body{display:flex;flex-direction:column;gap:8px;padding:14px;flex:1}
-.spt-featured-top{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
-.spt-featured-top h3{font-size:15px;line-height:1.25;margin:0}
-.spt-featured-year{font-size:10.5px;font-weight:600;color:var(--spt-accent);white-space:nowrap}
-.spt-featured-desc{margin:0;font-size:12px;line-height:1.55;color:var(--spt-muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.spt-featured-bullets{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:5px}
-.spt-featured-bullets li{position:relative;padding-left:14px;font-size:11.5px;line-height:1.45;color:var(--spt-muted)}
-.spt-featured-bullets li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:var(--spt-accent)}
-.spt-featured-stack{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:4px}
-.spt-featured-stack span{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:3px;background:var(--spt-soft);font-size:10.5px;color:var(--spt-muted)}
-.spt-featured-stack .spt-skill-icon{width:11px;height:11px;color:var(--skill-color,var(--spt-accent))}
-.spt-featured-actions{display:flex;align-items:center;gap:8px;padding-top:4px}
-.spt-featured-link{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:4px;background:var(--spt-soft2);font-size:11px;color:var(--spt-ink);text-decoration:none;transition:background .2s}
-.spt-featured-link:hover{background:color-mix(in oklab,var(--spt-accent) 14%,var(--spt-paper))}
-.spt-featured-more{margin-left:auto;padding:5px 0;border:0;background:none;color:var(--spt-accent);font-size:11px;cursor:pointer}
 
 /* timeline */
 .spt-filter{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 18px;padding:8px 10px;border-radius:4px;background:color-mix(in oklab,var(--spt-accent) 9%,var(--spt-paper));font-size:12.5px}
@@ -1644,8 +1614,6 @@ const SPT_CSS = `
 .qpt-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:6px;background:var(--spt-chip);color:var(--spt-ink);text-decoration:none;border:1px solid var(--spt-line);transition:all .2s}
 .qpt-link:hover{background:var(--spt-paper);border-color:var(--spt-muted);color:var(--spt-accent)}
 .qpt-detail p{margin:0 0 10px;font-size:14px;line-height:1.6;color:var(--spt-muted)}
-.qpt-highlights{list-style:disc;margin:2px 0 0;padding-left:18px;display:grid;gap:6px;font-size:12.5px;line-height:1.6;color:var(--spt-muted)}
-.qpt-highlights li::marker{color:var(--spt-accent)}
 .qpt-tags{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
 .qpt-tag{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--spt-chip);color:var(--spt-muted)}
 .qpt-visit{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:500;color:var(--spt-ink);margin-left:4px}
@@ -1690,7 +1658,7 @@ const SPT_CSS = `
 
 type Toast = { id: number; text: string }
 type Quip = { id: number; text: string }
-type Key = "about" | "work" | "experience" | "education" | "certificates" | "skills" | "contact"
+type Key = "about" | "experience" | "education" | "certificates" | "skills" | "contact"
 
 export default function SidebarPortfolioTemplate({
   name = "Oliver Rowland",
@@ -1727,7 +1695,6 @@ export default function SidebarPortfolioTemplate({
   contactTitle = "Let's build something good",
   contactText = "Have a product in mind, a team that needs another pair of hands, or just want to talk shop? My inbox is open, and I usually reply within a day.",
   available = true,
-  availabilityLabel = "Available for new projects",
   timeZone = "America/Chicago",
   city = "Houston",
   labels: labelsIn,
@@ -1831,7 +1798,6 @@ export default function SidebarPortfolioTemplate({
   const sections = (
     [
       ["about", L.about, aboutParas.length > 0 || keySkills.length > 0],
-      ["work", L.featuredWork, experience.length > 0],
       ["skills", L.skills, skills.length > 0],
       ["experience", L.experience, experience.length > 0],
       ["education", L.education, education.length > 0],
@@ -2329,16 +2295,10 @@ export default function SidebarPortfolioTemplate({
                     </span>
                   ))}
                 </div>
-                {available && (
-                  <p className="spt-status spt-hero-status">
-                    <span className="spt-dot" aria-hidden="true" />
-                    {availabilityLabel}
-                  </p>
-                )}
                 <h1 className="spt-h1 spt-serif">{headline}</h1>
                 {tagline && <p className="spt-tagline">{tagline}</p>}
                 {experience.length > 0 && (
-                  <button type="button" className="spt-cta" onClick={() => go("work")}>
+                  <button type="button" className="spt-cta" onClick={() => go("experience")}>
                     <span className="spt-stack">
                       {firstLogos.map((co, i) => (
                         <LogoTile key={i} logo={co.logo} name={co.company} size={20} round />
@@ -2390,80 +2350,6 @@ export default function SidebarPortfolioTemplate({
                         </ul>
                       </>
                     )}
-                  </div>
-                </section>
-              )}
-
-              {/* selected work */}
-              {experience.length > 0 && (
-                <section id={sid("work")} aria-labelledby={sid("work") + "-h"} className="spt-sec">
-                  <div {...reveal("work")}>
-                    <h2 id={sid("work") + "-h"} className="spt-h2 spt-serif">
-                      {L.featuredWork}
-                    </h2>
-                    <ul className="spt-featured">
-                      {experience.slice(0, 3).map((co, i) => {
-                        const role = co.roles[0]
-                        const img = role?.images?.[0] || projectImages?.[co.company]?.[0]
-                        return (
-                          <li key={co.company + i} className="spt-featured-card">
-                            <div className="spt-featured-media">
-                              {img ? (
-                                <img src={img} alt={co.company} loading="lazy" />
-                              ) : (
-                                <ProjectArt name={co.company} hue={i * 65} id={uid + "fw" + i} />
-                              )}
-                            </div>
-                            <div className="spt-featured-body">
-                              <div className="spt-featured-top">
-                                <h3>{co.company}</h3>
-                                {role?.start ? <span className="spt-featured-year">{role.start}</span> : null}
-                              </div>
-                              {role?.summary ? <p className="spt-featured-desc">{role.summary}</p> : null}
-                              {role?.highlights && role.highlights.length > 0 ? (
-                                <ul className="spt-featured-bullets">
-                                  {role.highlights.slice(0, 2).map((h, hi) => (
-                                    <li key={hi}>{h}</li>
-                                  ))}
-                                </ul>
-                              ) : null}
-                              {role?.skills && role.skills.length > 0 ? (
-                                <div className="spt-featured-stack">
-                                  {role.skills.slice(0, 4).map((t) => (
-                                    <span key={t}>
-                                      <SkillIcon name={t} />
-                                      {t}
-                                    </span>
-                                  ))}
-                                </div>
-                              ) : null}
-                              <div className="spt-featured-actions">
-                                {role?.liveLink ? (
-                                  <a className="spt-featured-link" href={role.liveLink} target="_blank" rel="noopener noreferrer">
-                                    Live ↗
-                                  </a>
-                                ) : null}
-                                {role?.repoLink ? (
-                                  <a className="spt-featured-link" href={role.repoLink} target="_blank" rel="noopener noreferrer">
-                                    Code ↗
-                                  </a>
-                                ) : null}
-                                <button
-                                  type="button"
-                                  className="spt-featured-more"
-                                  onClick={() => {
-                                    setOpenProject(i)
-                                    go("experience")
-                                  }}
-                                >
-                                  Details →
-                                </button>
-                              </div>
-                            </div>
-                          </li>
-                        )
-                      })}
-                    </ul>
                   </div>
                 </section>
               )}
@@ -2596,13 +2482,6 @@ export default function SidebarPortfolioTemplate({
                                       </div>
                                       <div>
                                         {co.roles[0]?.summary ? <p>{co.roles[0].summary}</p> : null}
-                                        {co.roles[0]?.highlights && co.roles[0].highlights.length > 0 ? (
-                                          <ul className="qpt-highlights">
-                                            {co.roles[0].highlights.map((h, hi) => (
-                                              <li key={hi}>{h}</li>
-                                            ))}
-                                          </ul>
-                                        ) : null}
                                         <div className="qpt-tags">
                                           {co.roles[0]?.skills?.map((t) => (
                                             <span className="qpt-tag" key={t}>

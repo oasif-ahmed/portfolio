@@ -13,7 +13,6 @@ export interface CustomProject {
   tags: string[];
   status: string;
   images: string[];
-  highlights?: string[];
   liveLink?: string;
   repoLink?: string;
   order?: number;
@@ -44,7 +43,6 @@ export async function getProjects() {
       tags: p.tags,
       status: p.status,
       images: p.images,
-      highlights: Array.isArray(p.highlights) ? p.highlights : [],
       liveLink: p.liveLink,
       repoLink: p.repoLink,
       order: typeof p.order === "number" ? p.order : index,

@@ -17,11 +17,6 @@ const DEFAULT_PROJECTS = [
     start: "2025",
     end: "2026",
     skills: ["TypeScript", "Express", "Node.js", "PostgreSQL"],
-    highlights: [
-      "Token-bucket quotas with lazy time-based refill",
-      "Standard rate-limit headers plus 429 + Retry-After",
-      "Verified by a 10-test Vitest suite",
-    ],
     images: ["https://images.unsplash.com/photo-1555066931-4365d14ba8c6?w=600"],
   },
   {
@@ -30,11 +25,6 @@ const DEFAULT_PROJECTS = [
     start: "2024",
     end: "2025",
     skills: ["React", "Node.js", "MongoDB"],
-    highlights: [
-      "Role-based dashboards for chefs and customers",
-      "Stripe payments with JWT-secured routes",
-      "TanStack Query for responsive data fetching",
-    ],
     images: ["https://images.unsplash.com/photo-1555393642-667d9bd48088?w=600"],
   },
   {
@@ -43,11 +33,6 @@ const DEFAULT_PROJECTS = [
     start: "2024",
     end: "2024",
     skills: ["JavaScript", "Express", "Firebase"],
-    highlights: [
-      "Inventory with automated low-stock alerts",
-      "Sales invoices and DSR settlement tracking",
-      "Role-based access for three staff levels",
-    ],
     images: ["https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600"],
   },
 ];
@@ -82,7 +67,6 @@ export default async function Home() {
         start: p.status,
         end: "",
         skills: p.tags,
-        highlights: p.highlights,
         images: p.images,
         liveLink: p.liveLink,
         repoLink: p.repoLink,
@@ -130,16 +114,9 @@ export default async function Home() {
         className="flex-1"
         name="Oasif Ahmed Rikto"
         role="Full-Stack Software Engineer"
-        headline="Backend-leaning full-stack engineer"
-        tagline="I build scalable APIs, reliable platforms, and clean developer tooling — with a soft spot for Redis, Postgres, and thoughtful interfaces."
+        headline="Full-Stack Software Engineer"
+        tagline="I love building scalable distributed backends, robust web platforms, and refined developer tooling with clean engineering craft."
         email="oasifrikto@gmail.com"
-        availabilityLabel="Available for impact roles"
-        stats={[
-          { value: String(dbSkills.length), label: "Skills in toolkit" },
-          { value: String(projects.length), label: "Projects shipped" },
-          { value: "3", label: "Core focus areas" },
-          { value: "Open", label: "To impact roles" },
-        ]}
         avatarSrc="/profile.png"
         signatureSrc="/signature.png"
         details={[
@@ -165,7 +142,7 @@ export default async function Home() {
         educationIntro="Final year of my bachelor's. My classes are done, so I can work full-time between my last two exams."
         education={dbEducation}
         languages={dbLanguages}
-        labels={{ experience: "Projects", featuredWork: "Selected Work", viewExperience: "View Selected Work" }}
+        labels={{ experience: "Projects", viewExperience: "View Projects" }}
         experience={experienceData}
         projectImages={projectImagesMap}
         accent="#e5553b"
